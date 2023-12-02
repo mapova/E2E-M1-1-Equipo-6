@@ -17,18 +17,46 @@ if response.status_code == 200:  # Verificar si la solicitud fue exitosa (códig
     data = response.json()  # Obtener los datos en formato JSON
     # Trabajar con los datos obtenidos de la API
     print(data)
-    results = data['results'] 
-    # Establecer conexión con la base de datos MongoDB
+''' results = data['results'] 
+   # Establecer conexión con la base de datos MongoDB
     client = pymongo.MongoClient('mongodb://localhost:27017/')  # URL de conexión de tu base de datos
-    db = client['nombre_de_tu_base_de_datos']  # Selecciona la base de datos
-    collection = db['nombre_de_tu_coleccion']  # Selecciona la colección
+    db = client['admin']  # Selecciona la base de datos
+    collection = db['admin']  # Selecciona la colección
     
     # Insertar los datos en la colección de MongoDB
     collection.insert_many(results)
     print("Datos insertados en MongoDB correctamente.")
 else:
     print('Hubo un problema con la solicitud. Código de estado:', response.status_code)
+'''
 
+import pymongo
+
+# Datos de conexión a MongoDB
+nombre_servidor = '8081'  # Cambia esto por la dirección del servidor MongoDB si es distinta
+puerto = 27017  # Puerto por defecto de MongoDB
+nombre_base_de_datos = 'admin'  # Nombre de tu base de datos
+nombre_coleccion = 'system.users'  # Nombre de tu colección
+
+# Establecer conexión con la base de datos MongoDB
+try:
+    client = pymongo.MongoClient(nombre_servidor,puerto)
+    print("Conexión exitosa a MongoDB")
+except pymongo.errors.ConnectionFailure as e:
+    print("No se pudo conectar a MongoDB:", e)
+
+# Seleccionar la base de datos
+db = client[nombre_base_de_datos]
+
+# Seleccionar la colección
+collection = db[nombre_coleccion]
+
+# Realizar operaciones con la colección (ejemplo: encontrar todos los documentos)
+documents = collection.find()
+
+# Mostrar los documentos encontrados
+for document in documents:
+    print(document)
 
 
 
