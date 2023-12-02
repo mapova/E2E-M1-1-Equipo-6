@@ -8,6 +8,8 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: admin
+    volumes:
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
 
   mongo-express:
     image: mongo-express
@@ -22,4 +24,3 @@ services:
       - "8081:8081"
     depends_on:
       - mongo
-
