@@ -24,3 +24,15 @@ services:
       - "8081:8081"
     depends_on:
       - mongo
+  jupyter:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mi-jupyter-container
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./notebooks:/home/jovyan/notebooks
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+      - MONGO_CONNECTION_STRING=mongodb://admin:admin@mongo:27017/
