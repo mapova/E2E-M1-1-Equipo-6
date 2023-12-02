@@ -1,0 +1,14 @@
+FROM python:3.9
+
+WORKDIR /home/app
+
+# Copiar el archivo requirements.txt
+COPY requirements.txt .
+
+# Instalar las dependencias
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copiar el resto de los archivos
+COPY . .
+
+CMD ["python", "script_2.py"]
