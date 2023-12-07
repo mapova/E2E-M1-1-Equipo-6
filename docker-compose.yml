@@ -24,3 +24,28 @@ services:
       - "8081:8081"
     depends_on:
       - mongo
+
+  python-script:
+    build:
+      context: .
+      dockerfile: DockerfilePython
+    container_name: mi-python-script-container
+    volumes:
+      - ./script_2.py:/home/app/script_2.py
+    depends_on:
+      - mongo
+
+  jupyter:
+    build:
+      context: .
+      dockerfile: DockerfileJupyter
+    container_name: mi-jupyter-container
+    ports:
+      - "8888:8888"
+    volumes:
+      - .:/home/jovyan/
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+      - MONGO_CONNECTION_STRING=mongodb://admin:admin@mongo:27017/
+    depends_on:
+      - mongo

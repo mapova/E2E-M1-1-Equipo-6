@@ -1,0 +1,15 @@
+FROM jupyter/base-notebook:latest
+
+WORKDIR /home/jovyan
+
+# Copiar el archivo requirements.txt
+COPY requirements.txt .
+
+# Instalar las dependencias
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copiar el resto de los archivos
+COPY . .
+
+# Comando para iniciar Jupyter Notebook
+CMD ["start-notebook.sh", "--NotebookApp.token=''", "--NotebookApp.password=''"]
